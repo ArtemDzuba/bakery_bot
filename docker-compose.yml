@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  bakery-bot:
+    build: .
+    container_name: bakery_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
