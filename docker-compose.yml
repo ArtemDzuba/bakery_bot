@@ -1,12 +1,22 @@
 version: '3.8'
+
 services:
   bakery-bot:
     build: .
     container_name: bakery_bot
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - VK_TOKEN=${VK_TOKEN}
+      - ADMIN_ID=${ADMIN_ID}
+      - DB_PATH=/app/data/bakery_bot.db
     volumes:
       - ./data:/app/data
+      - ./bakery_bot.db:/app/data/bakery_bot.db:ro
     stdin_open: true
     tty: true
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
